@@ -4,19 +4,19 @@
 	// error_reporting(E_ALL);
 
 	require __DIR__ . '/vendor/autoload.php';
-
+	echo "500";
 	/*Get Data From POST Http Request*/
 	$datas = file_get_contents('php://input');
 	/*Decode Json From LINE Data Body*/
 	$deCode = json_decode($datas,true);
 
-	file_put_contents('log.txt', file_get_contents('php://input') . PHP_EOL, FILE_APPEND);
+	
 
 	$replyToken = $deCode['events'][0]['replyToken'];
 	$userId = $deCode['events'][0]['source']['userId'];
 	$type = $deCode['events'][0]['type'];
 
-	$token = "LINE-ACCESS-TOKEN";
+	$token = "3r2ohGof69ms4hYeSENpaK8E8fBgGV42UkS/a/gzGc88hTHOpNw5+1E3QkAD4E+ENudqYyIIepXAaPZu1pzPcA82PVd0nSyQGA/TQZcAF4BIZt6i8Nhnqp0Uvc9IzqSyg07kI82CK5yUTktOrq6f2AdB04t89/1O/w1cDnyilFU=";
 
 	$LINEProfileDatas['url'] = "https://api.line.me/v2/bot/profile/".$userId;
   	$LINEProfileDatas['token'] = $token;
@@ -25,20 +25,20 @@
 
   	$LINEUserProfile = json_decode($resultsLineProfile['message'],true);
   	$displayName = $LINEUserProfile['displayName'];
-
+	  echo"200";
 	/*
 	 * We need to get a Google_Client object first to handle auth and api calls, etc.
 	 */
 	$client = new \Google_Client();
     $client->setApplicationName('Google Sheets API PHP Quickstart');
     $client->setScopes(\Google_Service_Sheets::SPREADSHEETS);
-    $client->setAuthConfig(__DIR__.'/amiable-octane-272311-e2e44b0f4852.json');
-    $client->setAccessType('offline');
+    $client->setAuthConfig(__DIR__.'/bottest-279517-0dc2d7773a37.json');
+    $client->setAccessType('online');
     // $client->setPrompt('select_account consent');
-
+	echo "600";
     $service = new \Google_Service_Sheets($client);
 
-    $spreadsheetId = "GOOGLE-SHEETS-ID";
+    $spreadsheetId = "1bXbuhVlI11loKILLnIFS3efGds8WMEhYqR5STpyyKxg";
 
     // updateData($spreadsheetId,$service);
     insertData($spreadsheetId,$service,$displayName);
